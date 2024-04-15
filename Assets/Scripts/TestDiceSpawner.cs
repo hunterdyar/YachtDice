@@ -69,7 +69,7 @@ namespace DefaultNamespace
 
 		void RecalculateScore()
 		{
-			foreach (var cat in Scores.Catgories)
+			foreach (var cat in Scores.Categories)
 			{
 				cat.RecalculateScore(Keep);
 			}
