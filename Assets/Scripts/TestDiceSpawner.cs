@@ -1,6 +1,4 @@
-﻿using System;
-using SODefinitions;
-using Unity.VisualScripting;
+﻿using SODefinitions;
 using UnityEngine;
 
 namespace DefaultNamespace

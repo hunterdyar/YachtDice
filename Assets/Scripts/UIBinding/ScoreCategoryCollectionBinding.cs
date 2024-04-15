@@ -1,8 +1,4 @@
-
-using System;
 using DefaultNamespace;
-using UIBinding;
-
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UIElements;

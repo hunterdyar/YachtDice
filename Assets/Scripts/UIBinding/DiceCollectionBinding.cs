@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using SODefinitions;
-using UnityEditor;
-using UnityEditor.UIElements;
+﻿using SODefinitions;
 using UnityEngine;
 using UnityEngine.UIElements;
 

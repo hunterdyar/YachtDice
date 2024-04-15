@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using DefaultNamespace;
-using UnityEditor.UIElements;
-using UnityEngine.PlayerLoop;
-using UnityEngine.SocialPlatforms.Impl;
+﻿using DefaultNamespace;
 using UnityEngine.UIElements;
 
 
@@ -26,7 +22,6 @@ using UnityEngine.UIElements;
 
 				_category = null;
 			}
-			
 			
 			Init();
 			_category = category;

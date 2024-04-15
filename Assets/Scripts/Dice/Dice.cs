@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
 
 	//these are scriptableObjects for easier serialization and saving/loading things.	
+	//todo: the dice binding didn't actually work, but i still want to go back and try again at it.
+	//so it can probably just be a POCO instead of an SO.
 	public class Dice : ScriptableObject
 	{
 		public Action<Dice> OnSelected;

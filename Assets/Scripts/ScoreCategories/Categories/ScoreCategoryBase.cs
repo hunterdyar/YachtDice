@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using SODefinitions;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace DefaultNamespace
 {
