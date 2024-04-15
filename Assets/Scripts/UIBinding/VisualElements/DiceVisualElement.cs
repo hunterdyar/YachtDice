@@ -4,47 +4,26 @@ using UnityEngine.UIElements;
 
 	public class DiceVisualElement : VisualElement
 	{
-		private bool _initialized;
 		public Button diceButton; 
 		public Dice Dice { get; set; }
+
+		public DiceVisualElement()
+		{
+			this.RegisterCallback<AttachToPanelEvent>(evt => Init());
+		}
+		public void Init()
+        {
+        	diceButton = this.Q<Button>(); 
+	        diceButton.clicked += DiceButtonOnClicked;
+        }
 		
 		public new class UxmlFactory : UxmlFactory<DiceVisualElement, UxmlTraits>
 		{
 		}
 
-		public new class UxmlTraits : VisualElement.UxmlTraits
-		{
-			public override IEnumerable<UxmlChildElementDescription> uxmlChildElementsDescription
-			{
-				get { yield break; }
-			}
-
-			public override void Init(VisualElement ve, IUxmlAttributes bag, CreationContext cc)
-			{
-				base.Init(ve, bag, cc);
-				var dve = ve as DiceVisualElement;
-				//how should this be serialized? the allowed child element above? Thing?
-			}
-		}
-		//manually binding.
-
-		public void Init()
-		{
-			diceButton = this.Q<Button>();
-			_initialized = diceButton != null;
-			if (_initialized)
-			{
-				diceButton.clicked += DiceButtonOnClicked;
-			}
-		}
 
 		private void DiceButtonOnClicked()
 		{
-			if (!_initialized)
-			{
-				Init();
-			}
-			
 			if (Dice != null)
 			{
 				Dice.Selected();
@@ -53,10 +32,6 @@ using UnityEngine.UIElements;
 
 		public void SetDice(Dice dice)
 		{
-			if (!_initialized)
-			{
-				Init();
-			}
 			//deregister existing if needed.
 			if (Dice != null)
 			{

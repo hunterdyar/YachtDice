@@ -8,7 +8,11 @@ using UnityEngine.UIElements;
 		private Label nameLabel;
 		private Label currentScoreLabel;
 		private Label lockedScoreLable;
-		
+
+		public ScoreCategoryVisualElement()
+		{
+			RegisterCallback<AttachToPanelEvent>(evt => Init());	
+		}
 		public new class UxmlFactory : UxmlFactory<ScoreCategoryVisualElement, UxmlTraits>
 		{
 			
@@ -23,7 +27,8 @@ using UnityEngine.UIElements;
 				_category = null;
 			}
 			
-			Init();
+			//Init();
+			
 			_category = category;
 			nameLabel.text = category.categoryName;
 			_category.OnLastCalculatedScoreChange += OnLastCalculatedScoreChange;

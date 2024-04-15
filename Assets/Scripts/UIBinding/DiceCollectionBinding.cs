@@ -28,8 +28,6 @@ namespace UIBinding
 			var d = diceElement.Q<DiceVisualElement>();
 			if (d != null)
 			{
-				d.Init();
-				//
 				d.SetDice(dice);
 			}
 			else
