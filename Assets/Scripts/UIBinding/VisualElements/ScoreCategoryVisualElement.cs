@@ -7,12 +7,25 @@ using UnityEngine.UIElements;
 		private ScoreCategoryBase _category;
 		private Label nameLabel;
 		private Label currentScoreLabel;
-		private Label lockedScoreLable;
-
+		private Label lockedScoreLabel;
+		private Label possibleScoreLabel;
+		
 		public ScoreCategoryVisualElement()
 		{
-			RegisterCallback<AttachToPanelEvent>(evt => Init());	
+			RegisterCallback<AttachToPanelEvent>(evt => Init());
+			RegisterCallback<DetachFromPanelEvent>(evt => Decompose());
 		}
+
+		private void Decompose()
+		{
+			//this doesn't quite match init, because _category is set in Bind.
+			if (_category != null)
+			{
+				_category.OnPossibleScoreChange -= OnPossibleCalculatedScoreChange;
+				_category.OnLastCalculatedScoreChange -= OnLastCalculatedScoreChange;
+			}
+		}
+
 		public new class UxmlFactory : UxmlFactory<ScoreCategoryVisualElement, UxmlTraits>
 		{
 			
@@ -33,15 +46,23 @@ using UnityEngine.UIElements;
 			nameLabel.text = category.categoryName;
 			_category.OnLastCalculatedScoreChange += OnLastCalculatedScoreChange;
 			OnLastCalculatedScoreChange(_category.LastCalculatedScore);
+
+			_category.OnPossibleScoreChange += OnPossibleCalculatedScoreChange;
+			OnPossibleCalculatedScoreChange(_category.PossibleScore);
 			
 			//todo: same as last calculated for locked
-			lockedScoreLable.text = category.LockedScore.ToString();
+			lockedScoreLabel.text = category.LockedScore.ToString();
 			//bind data and actions.
 		}
 
 		private void OnLastCalculatedScoreChange(int s)
 		{
 			currentScoreLabel.text = s.ToString();
+		}
+
+		private void OnPossibleCalculatedScoreChange(int s)
+		{
+			possibleScoreLabel.text = s.ToString();
 		}
 
 		private void Init()
@@ -56,9 +77,14 @@ using UnityEngine.UIElements;
 				currentScoreLabel = this.Q<Label>("Current");
 			}
 
-			if (lockedScoreLable == null)
+			if (lockedScoreLabel == null)
 			{
-				lockedScoreLable = this.Q<Label>("Banked");
+				lockedScoreLabel = this.Q<Label>("Banked");
+			}
+
+			if (possibleScoreLabel == null)
+			{
+				possibleScoreLabel = this.Q<Label>("Possible");
 			}
 		}
 	}

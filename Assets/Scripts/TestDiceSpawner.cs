@@ -52,7 +52,7 @@ namespace DefaultNamespace
 				foreach (var dice in Tray.Dice)
 				{
 					dice.Roll();
-					RecalculateScore();
+					RecalculatePossibleScore();
 				}
 			}else if (Input.GetKeyDown(KeyCode.N))
 			{
@@ -65,11 +65,20 @@ namespace DefaultNamespace
 			}
 		}
 
+		//todo: change to event in the dice collection that active scores register to? 
 		void RecalculateScore()
 		{
 			foreach (var cat in Scores.Categories)
 			{
 				cat.RecalculateScore(Keep);
+			}
+		}
+
+		void RecalculatePossibleScore()
+		{
+			foreach (var cat in Scores.Categories)
+			{
+				cat.CalculatePossibleScore(Tray);
 			}
 		}
 	}

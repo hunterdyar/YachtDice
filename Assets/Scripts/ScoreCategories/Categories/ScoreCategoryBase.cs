@@ -9,12 +9,19 @@ namespace DefaultNamespace
 	{
 		public Action<int> OnLastCalculatedScoreChange;
 		public Action<int> OnLockedScoreChange;
-
+		public Action<int> OnPossibleScoreChange;
+		
 		public string categoryName;
 		//todo: make private and use getters for events.
 		public int LastCalculatedScore;
 		public int LockedScore;
-		
+		public int PossibleScore;
+		public int CalculatePossibleScore(DiceCollection dice)
+		{
+			PossibleScore = Calculate(dice.Dice);
+			OnPossibleScoreChange?.Invoke(PossibleScore);
+			return PossibleScore;
+		}
 		public int RecalculateScore(DiceCollection dice)
 		{
 			LastCalculatedScore = Calculate(dice.Dice);
