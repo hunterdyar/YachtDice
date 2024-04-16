@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace DefaultNamespace
 {
-	[CreateAssetMenu(fileName = "Score Categories", menuName = "ScoreCategoryCollection", order = 0)]
+	[CreateAssetMenu(fileName = "Score Categories", menuName = "Yacht/ScoreCategoryCollection", order = 0)]
 	public class ScoreCategoryCollection : ScriptableObject
 	{
 		public Action OnCategoriesChanged;

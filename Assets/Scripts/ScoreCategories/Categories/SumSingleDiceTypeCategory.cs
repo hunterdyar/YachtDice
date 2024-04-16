@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -8,10 +9,10 @@ namespace DefaultNamespace
 	public class SumSingleDiceTypeCategory : ScoreCategoryBase
 	{
 		public int value;
-		//public DiceFace ComparisonFace;
-		public override int Calculate(IEnumerable<Dice> dice)
+		
+		public override Func<Dice, bool> GetPredicate()
 		{
-			return dice.Where(x => x.UpFace().GetValue() == value).Sum(x=>x.UpFace().GetValue());
+			return d => d.UpFace().GetValue() == value;
 		}
 	}
 }
