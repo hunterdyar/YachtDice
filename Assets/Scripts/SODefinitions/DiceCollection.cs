@@ -74,6 +74,12 @@ namespace SODefinitions
 			//later tho, the solution is known but adding a listener to each dice roll is annoying.
 			RecalculateGroups();
 			return _groupsCache;
-		} 
+		}
+
+		public IEnumerable<Dice> GetSortedLowToHigh()
+		{
+			//todo: for caching.
+			return Dice.OrderBy(d => d.UpFace().GetValue());
+		}
 	}
 }
