@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using SODefinitions;
 using UnityEngine;
 
 namespace DefaultNamespace
@@ -8,10 +10,17 @@ namespace DefaultNamespace
 	public class SumSingleDiceTypeCategory : ScoreCategoryBase
 	{
 		public int value;
-		//public DiceFace ComparisonFace;
-		public override int Calculate(IEnumerable<Dice> dice)
+
+		public override bool IsValidHand(DiceCollection dice)
 		{
-			return dice.Where(x => x.UpFace().GetValue() == value).Sum(x=>x.UpFace().GetValue());
+			LastUsedDice = dice.Dice.Where(d => d.UpFace().GetValue() == value).ToList();
+			return LastUsedDice.Any();
+		}
+
+		public override Func<Dice, bool> GetPredicate() 
+		{
+			//note: doing this "again" is probably a lot faster than LINQ Contains().
+			return d => d.UpFace().GetValue() == value;
 		}
 	}
 }
