@@ -12,12 +12,10 @@ namespace DefaultNamespace
 	{
 		//ie: {3,2} for some full house
 		public int[] groupingCounts;
-		private List<Dice> _usedDice = new List<Dice>(); 
 		public override bool IsValidHand(DiceCollection dice)
 		{
 			var groups = dice.GetGroups();
 			bool[] hands = new bool[groupingCounts.Length];
-			_usedDice.Clear();
 			for (int i = 0; i < hands.Length; i++)
 			{
 				int k = 0;
@@ -28,10 +26,7 @@ namespace DefaultNamespace
 					{
 						hands[i] = true;
 						//cache
-						foreach (var d in group) 
-						{
-							_usedDice.Add(d);
-						}
+						LastUsedDice.AddRange(group);
 						break;//skip ahead so it doesn't count for multiple hands of same value.
 					}	
 					k++;
@@ -39,11 +34,6 @@ namespace DefaultNamespace
 			}
 
 			return hands.All(x => x);
-		}
-
-		public override Func<Dice, bool> GetPredicate()
-		{
-			return (x) => _usedDice.Contains(x);
 		}
 	}
 }

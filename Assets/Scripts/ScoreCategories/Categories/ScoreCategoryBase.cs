@@ -20,9 +20,11 @@ namespace DefaultNamespace
 		public string categoryName;
 
 		[SerializeField] private ScoreTallyType _tallyType;
+		protected  List<Dice> LastUsedDice;
 		
 		public int RecalculateScore(DiceCollection dice)
 		{
+			LastUsedDice.Clear();
 			var valid = IsValidHand(dice);
 			if (valid)
 			{
@@ -39,12 +41,12 @@ namespace DefaultNamespace
 
 		public virtual bool IsValidHand(DiceCollection dice)
 		{
-			//keep a list of dice that would count for this hand?
+			LastUsedDice = dice.DiceList;
 			return true;
 		}
 		public virtual int Calculate(IEnumerable<Dice> dice)
 		{
-			
+			//lastUsedDice needs to be calculated before GetPredicate, which 
 			switch (_tallyType)
             {
             	case ScoreTallyType.constant:
@@ -64,7 +66,7 @@ namespace DefaultNamespace
 
 		public virtual Func<Dice,bool> GetPredicate()
 		{
-			return new Func<Dice, bool>(x => true);
+			return x => LastUsedDice.Contains(x);
 		}
 	}
 }

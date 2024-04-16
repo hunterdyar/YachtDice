@@ -12,16 +12,16 @@ namespace DefaultNamespace
 	[CreateAssetMenu(fileName = "Straight", menuName = "Yacht / Score /Straight", order = 0)]
 	public class Straight : ScoreCategoryBase
 	{
-		//listUsedDice
 		[SerializeField] private int _run;
 		public override bool IsValidHand(DiceCollection dice)
 		{
 			var lowToHigh = dice.GetSortedLowToHigh();
-			for (int i = 0; i < lowToHigh.Count()-(_run-1); i++)
+			for (int i = lowToHigh.Count() - (_run - 1) - 1; i >= 0; i--)
 			{
-				if (IsStraight(lowToHigh.Skip(i).Take(_run)))
+				var test = lowToHigh.Skip(i).Take(_run);
+				if (IsStraight(test))
 				{
-					//lastuseddice.add
+					LastUsedDice.AddRange(test);
 					return true;
 				}
 			}
