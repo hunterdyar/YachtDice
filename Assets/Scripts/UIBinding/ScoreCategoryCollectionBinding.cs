@@ -12,20 +12,13 @@ public class ScoreCategoryCollectionBinding : MonoBehaviour
 
     private void OnEnable()
     {
-       _collection.OnCategoriesChanged += OnCategoriesChanged; 
+        //event reference: https://docs.unity3d.com/Manual/UIE-Events-Reference.html
+       _collection.OnCategoriesChanged += OnCategoriesChanged;
     }
 
     private void OnDisable()
     {
         _collection.OnCategoriesChanged -= OnCategoriesChanged;
-    }
-
-    private void OnCategoriesChanged()
-    {
-        if (_categoryList != null)
-        {
-             _categoryList.RefreshItems();
-        }
     }
 
     // Start is called before the first frame update
@@ -55,5 +48,12 @@ public class ScoreCategoryCollectionBinding : MonoBehaviour
          
         _categoryList.selectionType = SelectionType.None;
     }
-    
+
+    private void OnCategoriesChanged()
+    {
+        if (_categoryList != null)
+        {
+            _categoryList.RefreshItems();
+        }
+    }
 }

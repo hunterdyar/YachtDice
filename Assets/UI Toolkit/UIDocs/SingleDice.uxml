@@ -1,4 +1,5 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/USS/singleDice.uss?fileID=7433441132597879392&amp;guid=c6059760087ad6e44b7860c636b851a8&amp;type=3#singleDice" />
     <DiceVisualElement style="width: 50px; height: 50px;">
         <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" text=":*" name="DiceButton" style="padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 1px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 1px; flex-grow: 100; opacity: 1; background-color: rgb(243, 234, 196); border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; font-size: 37px;" />
     </DiceVisualElement>

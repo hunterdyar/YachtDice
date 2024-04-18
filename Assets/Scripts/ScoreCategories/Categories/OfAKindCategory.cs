@@ -13,7 +13,7 @@ namespace DefaultNamespace
 		[SerializeField]
 		private int _count;
 
-		public override bool IsValidHand(DiceCollection dice)
+		public override bool IsValidHand(DiceCollection dice, ref List<Dice> usedDice)
 		{
 			var groups = dice.GetGroups();
 			var validGroups = groups.Where(x => x.Count() == _count)
@@ -28,11 +28,12 @@ namespace DefaultNamespace
 			{
 				//automatically choose the highest number for dice here by grabbing the highest by sorting value.
 				var v = validGroups.First();
-				LastUsedDice.AddRange(v);
+				usedDice.AddRange(v);
 
 				return true;
 			}
 		}
 		
+
 	}
 }

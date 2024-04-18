@@ -15,49 +15,75 @@ namespace DefaultNamespace
 		//todo: make private and use getters for events.
         public int LastCalculatedScore;
         public int LockedScore;
-        
+        public int PossibleScore;
+
 		[Header("Configuration")]
 		public string categoryName;
 
 		[SerializeField] private ScoreTallyType _tallyType;
-		protected  List<Dice> LastUsedDice;
-		
+		public List<Dice> LastUsedDiceCalculated => _lastUsedDiceCalculated;
+		protected  List<Dice> _lastUsedDiceCalculated;
+		public List<Dice> LastUsedDicePossible => LastUsedDicePossible;
+		protected List<Dice> _lastUsedDicePossible;
 		public Action<int> OnPossibleScoreChange;
 		
-		public string categoryName;
-		//todo: make private and use getters for events.
-		public int LastCalculatedScore;
-		public int LockedScore;
-		public int PossibleScore;
 		public int CalculatePossibleScore(DiceCollection dice)
 		{
 			PossibleScore = Calculate(dice.Dice);
 			OnPossibleScoreChange?.Invoke(PossibleScore);
 			return PossibleScore;
 		}
-		public int RecalculateScore(DiceCollection dice)
+		
+		public int RecalculateScore(DiceCollection dice, ScoreCalculationType calculationType = ScoreCalculationType.Calculated)
 		{
-			LastUsedDice.Clear();
-			var valid = IsValidHand(dice);
-			if (valid)
+			bool valid = false;
+			if (calculationType == ScoreCalculationType.Calculated)
 			{
-				LastCalculatedScore = Calculate(dice.Dice);
-			}
-			else
+				_lastUsedDiceCalculated.Clear();
+				valid = IsValidHand(dice,ref _lastUsedDiceCalculated);
+			}else if (calculationType == ScoreCalculationType.Possible)
 			{
-				LastCalculatedScore = 0;
+				_lastUsedDicePossible.Clear();
+				valid = IsValidHand(dice, ref _lastUsedDicePossible);
 			}
-			
-			OnLastCalculatedScoreChange?.Invoke(LastCalculatedScore); 
-			return LastCalculatedScore;
+
+			if (calculationType == ScoreCalculationType.Calculated)
+			{
+				if (valid)
+				{
+					LastCalculatedScore = Calculate(dice.Dice, calculationType);
+				}
+				else
+				{
+					LastCalculatedScore = 0;
+				}
+
+				OnLastCalculatedScoreChange?.Invoke(LastCalculatedScore);
+				return LastCalculatedScore;
+			}else if (calculationType == ScoreCalculationType.Possible)
+			{
+				if (valid)
+				{
+					PossibleScore = Calculate(dice.Dice, calculationType);
+				}
+				else
+				{
+					PossibleScore = 0;
+				}
+
+				OnPossibleScoreChange?.Invoke(PossibleScore);
+				return PossibleScore;
+			}
+
+			return 0;
 		}
 
-		public virtual bool IsValidHand(DiceCollection dice)
+		public virtual bool IsValidHand(DiceCollection dice, ref List<Dice> usedDice)
 		{
-			LastUsedDice = dice.DiceList;
+			usedDice = dice.DiceList;
 			return true;
 		}
-		public virtual int Calculate(IEnumerable<Dice> dice)
+		public virtual int Calculate(IEnumerable<Dice> dice, ScoreCalculationType calculationType = ScoreCalculationType.Calculated)
 		{
 			//lastUsedDice needs to be calculated before GetPredicate, which 
 			switch (_tallyType)
@@ -68,7 +94,7 @@ namespace DefaultNamespace
             		return dice.Count();//todo: times multiplier
             	case ScoreTallyType.sumOfValidDice:
             		//todo: cache once.
-            		var f = GetPredicate();
+            		var f = GetPredicate(calculationType);
             		return dice.Where(f).Sum(d => d.UpFace().GetValue());
             	case ScoreTallyType.sumOfAllDice:
             		return dice.Sum(d => d.UpFace().GetValue());
@@ -77,9 +103,14 @@ namespace DefaultNamespace
             }
 		}
 
-		public virtual Func<Dice,bool> GetPredicate()
+		public virtual Func<Dice,bool> GetPredicate(ScoreCalculationType calculationType)
 		{
-			return x => LastUsedDice.Contains(x);
+			return x => _lastUsedDiceCalculated.Contains(x);
+		}
+
+		public List<Dice> CalculatingDiceList(ScoreCalculationType calcType)
+		{
+			return calcType == ScoreCalculationType.Calculated ? _lastUsedDiceCalculated : _lastUsedDicePossible;
 		}
 	}
 }

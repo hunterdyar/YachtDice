@@ -11,13 +11,13 @@ namespace DefaultNamespace
 	{
 		public int value;
 
-		public override bool IsValidHand(DiceCollection dice)
+		public override bool IsValidHand(DiceCollection dice, ref List<Dice> usedDice)
 		{
-			LastUsedDice = dice.Dice.Where(d => d.UpFace().GetValue() == value).ToList();
-			return LastUsedDice.Any();
+			usedDice = dice.Dice.Where(d => d.UpFace().GetValue() == value).ToList();
+			return usedDice.Any();
 		}
 
-		public override Func<Dice, bool> GetPredicate() 
+		public override Func<Dice, bool> GetPredicate(ScoreCalculationType scoreCalculation = ScoreCalculationType.Calculated) 
 		{
 			//note: doing this "again" is probably a lot faster than LINQ Contains().
 			return d => d.UpFace().GetValue() == value;

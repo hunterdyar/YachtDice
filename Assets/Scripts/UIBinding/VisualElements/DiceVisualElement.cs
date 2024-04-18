@@ -10,7 +10,16 @@ using UnityEngine.UIElements;
 		public DiceVisualElement()
 		{
 			this.RegisterCallback<AttachToPanelEvent>(evt => Init());
+			this.RegisterCallback<DetachFromPanelEvent>(evt =>
+			{
+				if (Dice != null)
+				{
+					Dice.OnUpFaceChanged -= OnUpFaceChanged;
+					Dice.OnDisplayStateChange -= OnDiceDisplayStateChange;
+				}
+			});
 		}
+
 		public void Init()
         {
         	diceButton = this.Q<Button>(); 
@@ -20,7 +29,7 @@ using UnityEngine.UIElements;
 		public new class UxmlFactory : UxmlFactory<DiceVisualElement, UxmlTraits>
 		{
 		}
-
+		 
 
 		private void DiceButtonOnClicked()
 		{
@@ -30,12 +39,26 @@ using UnityEngine.UIElements;
 			}
 		}
 
+		private void OnDiceDisplayStateChange(bool state)
+		{
+			Debug.Log(state);
+			if (state)
+			{
+				AddToClassList("highlight");
+			}
+			else
+			{
+				RemoveFromClassList("highlight");
+			}
+		}
+		
 		public void SetDice(Dice dice)
 		{
 			//deregister existing if needed.
 			if (Dice != null)
 			{
 				Dice.OnUpFaceChanged -= OnUpFaceChanged;
+				Dice.OnDisplayStateChange -= OnDiceDisplayStateChange;
 				Dice = null;
 			}
 
@@ -46,7 +69,8 @@ using UnityEngine.UIElements;
 			}
 			
 			Dice = dice;
-			dice.OnUpFaceChanged += OnUpFaceChanged;
+			Dice.OnUpFaceChanged += OnUpFaceChanged;
+			Dice.OnDisplayStateChange += OnDiceDisplayStateChange;
 			OnUpFaceChanged(Dice.UpFace());
 		}
 
@@ -70,5 +94,5 @@ using UnityEngine.UIElements;
 			diceButton.text = face.GetValue().ToString();
 		}
 		
-
+		
 	}

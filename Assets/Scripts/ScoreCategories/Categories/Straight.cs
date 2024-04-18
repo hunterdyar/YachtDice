@@ -13,20 +13,21 @@ namespace DefaultNamespace
 	public class Straight : ScoreCategoryBase
 	{
 		[SerializeField] private int _run;
-		public override bool IsValidHand(DiceCollection dice)
+		public override bool IsValidHand(DiceCollection dice, ref List<Dice> usedDice)
 		{
+			//todo: get Groups sorted low to high
 			var lowToHigh = dice.GetSortedLowToHigh();
 			for (int i = lowToHigh.Count() - (_run - 1) - 1; i >= 0; i--)
 			{
 				var test = lowToHigh.Skip(i).Take(_run);
 				if (IsStraight(test))
 				{
-					LastUsedDice.AddRange(test);
+					usedDice.AddRange(test);
 					return true;
 				}
 			}
 
-			 return false;
+			return false;
 		}
 
 		private bool IsStraight(IEnumerable<Dice> dice)

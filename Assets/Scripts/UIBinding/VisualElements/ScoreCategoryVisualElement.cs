@@ -1,4 +1,5 @@
 ﻿using DefaultNamespace;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 
@@ -14,8 +15,46 @@ using UnityEngine.UIElements;
 		{
 			RegisterCallback<AttachToPanelEvent>(evt => Init());
 			RegisterCallback<DetachFromPanelEvent>(evt => Decompose());
+			RegisterCallback<PointerEnterEvent>(evt => OnMouseHover(true));
+			RegisterCallback<PointerLeaveEvent>(evt => OnMouseHover(false));
+
 		}
 
+		private void OnMouseHover(bool p0)
+		{
+			if (_category != null)
+			{
+				foreach (var d in _category.LastUsedDicePossible)
+				{
+					//todo: we use lastDice to calculate teh score in multiple places.... which one happens last? LastDiceUsed isn't as sticky as I would like. Should be current-calculating and possible-calculating.
+					d.SetHighlight(true);
+				}
+			}
+		}
+
+		private void Init()
+		{
+			if (nameLabel == null)
+			{
+				nameLabel = this.Q<Label>("Name");
+			}
+
+			if (currentScoreLabel == null)
+			{
+				currentScoreLabel = this.Q<Label>("Current");
+			}
+
+			if (lockedScoreLabel == null)
+			{
+				lockedScoreLabel = this.Q<Label>("Banked");
+			}
+
+			if (possibleScoreLabel == null)
+			{
+				possibleScoreLabel = this.Q<Label>("Possible");
+			}
+			
+		}
 		private void Decompose()
 		{
 			//this doesn't quite match init, because _category is set in Bind.
@@ -65,26 +104,5 @@ using UnityEngine.UIElements;
 			possibleScoreLabel.text = s.ToString();
 		}
 
-		private void Init()
-		{
-			if (nameLabel == null)
-			{
-				nameLabel = this.Q<Label>("Name");
-			}
-
-			if (currentScoreLabel == null)
-			{
-				currentScoreLabel = this.Q<Label>("Current");
-			}
-
-			if (lockedScoreLabel == null)
-			{
-				lockedScoreLabel = this.Q<Label>("Banked");
-			}
-
-			if (possibleScoreLabel == null)
-			{
-				possibleScoreLabel = this.Q<Label>("Possible");
-			}
-		}
+		
 	}

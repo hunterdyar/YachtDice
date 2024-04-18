@@ -12,7 +12,7 @@ namespace DefaultNamespace
 	{
 		//ie: {3,2} for some full house
 		public int[] groupingCounts;
-		public override bool IsValidHand(DiceCollection dice)
+		public override bool IsValidHand(DiceCollection dice, ref List<Dice> usedDice)
 		{
 			var groups = dice.GetGroups();
 			bool[] hands = new bool[groupingCounts.Length];
@@ -26,7 +26,7 @@ namespace DefaultNamespace
 					{
 						hands[i] = true;
 						//cache
-						LastUsedDice.AddRange(group);
+						usedDice.AddRange(group);
 						break;//skip ahead so it doesn't count for multiple hands of same value.
 					}	
 					k++;

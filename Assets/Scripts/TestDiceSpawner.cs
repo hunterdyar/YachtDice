@@ -78,7 +78,7 @@ namespace DefaultNamespace
 		{
 			foreach (var cat in Scores.Categories)
 			{
-				cat.CalculatePossibleScore(Tray);
+				cat.Calculate(Tray.Dice,ScoreCalculationType.Possible);
 			}
 		}
 	}
