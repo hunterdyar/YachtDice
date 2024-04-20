@@ -35,6 +35,7 @@ namespace DefaultNamespace
 		{
 			Tray.RemoveDice(dice);
 			Keep.AddDice(dice);
+			RecalculatePossibleScore();
 			RecalculateScore();
 		}
 
@@ -42,6 +43,7 @@ namespace DefaultNamespace
 		{
 			Keep.RemoveDice(dice);
 			Tray.AddDice(dice);
+			RecalculatePossibleScore();
 			RecalculateScore();
 		}
 
@@ -59,6 +61,7 @@ namespace DefaultNamespace
 				var d = Dice.CreateNormalDice(6);
 				d.Roll();
 				Tray.AddDice(d);
+				RecalculatePossibleScore();
 			}else if (Input.GetKeyDown(KeyCode.M))
 			{
 				RecalculateScore();
@@ -78,7 +81,8 @@ namespace DefaultNamespace
 		{
 			foreach (var cat in Scores.Categories)
 			{
-				cat.Calculate(Tray.Dice,ScoreCalculationType.Possible);
+			//	cat.Calculate(Tray.Dice,ScoreCalculationType.Possible);
+				cat.CalculatePossibleScore(Tray);
 			}
 		}
 	}
