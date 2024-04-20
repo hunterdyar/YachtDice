@@ -1,4 +1,6 @@
-.highlight Label#DiceButton {
+.highlight #DiceButton {
     -unity-background-image-tint-color: rgba(39, 65, 43, 0.59);
     background-color: rgba(33, 87, 120, 0.62);
+    opacity: 1;
+    -unity-font-style: bold;
 }

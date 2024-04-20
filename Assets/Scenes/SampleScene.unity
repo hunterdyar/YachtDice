@@ -482,7 +482,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a659b3746c1db8d4d93de50d5b4386ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _Collection: {fileID: 11400000, guid: f921f59925a12c540a6ca2cb3d694e29, type: 2}
+  _collection: {fileID: 11400000, guid: f921f59925a12c540a6ca2cb3d694e29, type: 2}
   _scoreCategoryTemplate: {fileID: 9197481963319205126, guid: 06365daf95d2e15419d7e33c8de21a15, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

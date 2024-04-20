@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using DefaultNamespace;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -39,17 +40,12 @@ using UnityEngine.UIElements;
 			}
 		}
 
-		private void OnDiceDisplayStateChange(bool state)
+		private void OnDiceDisplayStateChange(DiceDisplayState state)
 		{
-			Debug.Log(state);
-			if (state)
-			{
-				AddToClassList("highlight");
-			}
-			else
-			{
-				RemoveFromClassList("highlight");
-			}
+			//if state...
+			EnableInClassList("highlight",state == DiceDisplayState.Highlighted);
+			//this works
+			//	diceButton.style.backgroundColor = state == DiceDisplayState.Highlighted ? new StyleColor(Color.blue) : new StyleColor(Color.magenta);
 		}
 		
 		public void SetDice(Dice dice)

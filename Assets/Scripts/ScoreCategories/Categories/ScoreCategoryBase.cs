@@ -23,13 +23,13 @@ namespace DefaultNamespace
 		[SerializeField] private ScoreTallyType _tallyType;
 		public List<Dice> LastUsedDiceCalculated => _lastUsedDiceCalculated;
 		protected  List<Dice> _lastUsedDiceCalculated;
-		public List<Dice> LastUsedDicePossible => LastUsedDicePossible;
+		public List<Dice> LastUsedDicePossible => _lastUsedDicePossible;
 		protected List<Dice> _lastUsedDicePossible;
 		public Action<int> OnPossibleScoreChange;
 		
 		public int CalculatePossibleScore(DiceCollection dice)
 		{
-			PossibleScore = Calculate(dice.Dice);
+			PossibleScore = RecalculateScore(dice,ScoreCalculationType.Possible);
 			OnPossibleScoreChange?.Invoke(PossibleScore);
 			return PossibleScore;
 		}

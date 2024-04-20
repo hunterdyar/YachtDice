@@ -20,14 +20,14 @@ using UnityEngine.UIElements;
 
 		}
 
-		private void OnMouseHover(bool p0)
+		private void OnMouseHover(bool hovering)
 		{
 			if (_category != null)
 			{
 				foreach (var d in _category.LastUsedDicePossible)
 				{
 					//todo: we use lastDice to calculate teh score in multiple places.... which one happens last? LastDiceUsed isn't as sticky as I would like. Should be current-calculating and possible-calculating.
-					d.SetHighlight(true);
+					d.SetHighlight(hovering);
 				}
 			}
 		}
