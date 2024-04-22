@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using DefaultNamespace;
-using JetBrains.Annotations;
 using UnityEngine;
-using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
 
 	//these are scriptableObjects for easier serialization and saving/loading things.	
