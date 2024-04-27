@@ -23,8 +23,11 @@ using UnityEngine.UIElements;
 
 		public void Init()
         {
-        	diceButton = this.Q<Button>(); 
-	        diceButton.clicked += DiceButtonOnClicked;
+        	diceButton = this.Q<Button>();
+	        if (diceButton != null)
+	        {
+		        diceButton.clicked += DiceButtonOnClicked;
+	        }
         }
 		
 		public new class UxmlFactory : UxmlFactory<DiceVisualElement, UxmlTraits>

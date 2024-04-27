@@ -21,7 +21,7 @@ public class SerialReadButtons : MonoBehaviour
         _port = new SerialPort(ports[portIndex], baud, parity);
         _port.Open();
 
-        byte[] buffer = new byte[8*11];
+        byte[] buffer = new byte[64];
         Action kickoffRead = null;
         kickoffRead = delegate
         {

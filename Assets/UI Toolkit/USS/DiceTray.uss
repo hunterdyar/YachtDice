@@ -1,0 +1,12 @@
+#DiceRollTray VisualElement {
+    max-width: 50%;
+    max-height: 25%;
+    min-width: 50%;
+    min-height: 25%;
+    flex-shrink: 1;
+    flex-grow: 1;
+    flex-direction: row;
+    align-self: auto;
+    flex-basis: auto;
+    align-items: center;
+}

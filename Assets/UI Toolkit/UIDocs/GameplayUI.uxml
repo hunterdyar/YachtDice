@@ -1,11 +1,16 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:Template name="SingleDice" src="project://database/Assets/UI%20Toolkit/UIDocs/SingleDice.uxml?fileID=9197481963319205126&amp;guid=7f25be307e2b1784290dad192ce2e0ea&amp;type=3#SingleDice" />
-    <ui:VisualElement name="UIRoot" style="flex-grow: 1; position: absolute; left: 0; top: 0; right: 0; bottom: 0;">
-        <ui:ListView name="ScoreCategoryListView" style="left: 40%; top: 0; right: 0; bottom: 0; height: 100%; width: 60%; align-self: auto; position: absolute; background-color: rgb(230, 255, 249);" />
-        <ui:VisualElement name="DiceRollTray" style="flex-grow: 1; position: absolute; left: 0; right: 60%; top: 0; bottom: 10%; background-color: rgb(29, 67, 25); align-items: stretch; flex-direction: row; flex-wrap: wrap;" />
-        <ui:VisualElement name="DiceKeeperTray" style="flex-grow: 1; position: absolute; left: 0; top: 90%; right: 60%; bottom: 0; background-color: rgb(53, 130, 107); align-items: center; flex-direction: row; flex-wrap: wrap; flex-basis: auto; justify-content: flex-start; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 3px; padding-bottom: 0; padding-left: 3px;">
-            <ui:Instance template="SingleDice" name="SingleDice" />
-            <ui:Instance template="SingleDice" name="SingleDice" />
+    <Style src="project://database/Assets/UI%20Toolkit/USS/DiceTray.uss?fileID=7433441132597879392&amp;guid=4564010ee2f134c4490d7d6da445250f&amp;type=3#DiceTray" />
+    <ui:VisualElement name="UIRoot" style="flex-grow: 1; position: absolute; left: 0; top: 0; right: 0; bottom: 0; flex-direction: row;">
+        <ui:VisualElement name="DiceRollTray" style="flex-grow: 1; background-color: rgb(29, 67, 25); align-items: stretch; flex-direction: column; flex-wrap: wrap; width: 60%; height: 100%; justify-content: flex-start; flex-shrink: 0; min-width: 60%;">
+            <ui:VisualElement name="DiceSlot" class="DiceSlot" style="align-items: center; justify-content: space-around; align-self: auto;" />
+            <ui:VisualElement name="DiceSlot" />
+            <ui:VisualElement name="DiceSlot" />
+            <ui:VisualElement name="DiceSlot" />
+            <ui:VisualElement name="DiceSlot" style="align-items: center; align-self: auto;" />
+            <ui:VisualElement name="DiceSlot" />
+            <ui:VisualElement name="DiceSlot" />
+            <ui:VisualElement name="DiceSlot" style="min-height: 25%;" />
         </ui:VisualElement>
+        <ui:ListView name="ScoreCategoryListView" style="height: 100%; width: 40%; align-self: flex-start; background-color: rgb(230, 255, 249);" />
     </ui:VisualElement>
 </ui:UXML>
